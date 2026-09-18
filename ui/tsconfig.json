@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "./dist/out-tsc",
+    "paths": {
+      "@tc-eng/component-library": ["src/app/tcl-stubs/index.ts"],
+      "@tc-eng/component-library/utils/featureFlags": ["src/app/tcl-stubs/utils/featureFlags.ts"]
+    },
+    "sourceMap": true,
+    "target": "ES2022",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "useDefineForClassFields": false
+  }
+}

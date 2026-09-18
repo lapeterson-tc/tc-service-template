@@ -1,0 +1,21 @@
+{
+  "allowOnDemand": true,
+  "appId": "62822e38-4077-41b8-b24d-16a25703d91f",
+  "displayName": "Service Template",
+  "displayPath": "service_template",
+  "features": [
+    "fileParams",
+    "linkApiPath",
+    "redisPasswordSupport"
+  ],
+  "languageVersion": "3.11",
+  "listDelimiter": "|",
+  "minServerVersion": "7.2.0",
+  "note": "\n",
+  "params": [],
+  "programLanguage": "PYTHON",
+  "programMain": "run.py",
+  "programVersion": "1.0.0",
+  "runtimeLevel": "ApiService",
+  "sdkVersion": "4.0.7"
+}

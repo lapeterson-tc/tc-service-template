@@ -1,0 +1,186 @@
+// ── The viewport-pinned shell ──────────────────────────────────────────────
+// Read this before changing anything here; every rule below is load-bearing
+// and the failure modes are silent.
+//
+// styles.scss sets `html, body { height: 100%; overflow: hidden }` so the
+// document never scrolls. The routed page inside .main-content is what
+// scrolls, which means EVERY routed page component must set
+// `overflow-y: auto` on its own :host or it will silently clip everything
+// past the fold.
+
+// `display: block` matters: app-root is inline by default, so a height or
+// min-height on it is ignored — which silently breaks every `height: 100%`
+// further down the tree.
+:host {
+    display: block;
+    height: 100%;
+}
+
+.parent {
+    display: grid;
+    grid-template-areas:
+        'header'
+        'main-content';
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 1fr;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    // Exactly the viewport, never taller. With `height: auto` the grid grows
+    // to fit its content, the 1fr row expands past the viewport, every child's
+    // `height: 100%` resolves to content height, and no page can ever
+    // establish a scroll container — body just clips the overflow.
+    height: 100%;
+    background-color: var(--app-canvas);
+    color: var(--app-ink);
+}
+
+.main-content {
+    grid-area: main-content;
+    height: 100%;
+    // Grid rows have an automatic minimum size, so a tall page would push the
+    // 1fr row past the viewport and re-create the overflow this is meant to
+    // contain. The routed page inside supplies its own `overflow-y: auto`.
+    min-height: 0;
+    overflow: hidden;
+}
+
+// Angular inserts the routed component as a SIBLING after <router-outlet>.
+// Left inline, the outlet contributes a stray line box that pushes the page
+// down and forces a few pixels of permanent scroll.
+router-outlet {
+    display: none;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────
+
+.header {
+    grid-area: header;
+    z-index: 1000;
+    background-color: var(--app-surface);
+    border-bottom: 1px solid var(--app-border);
+    transition: background-color 0.2s, border-color 0.2s;
+
+    h3 {
+        margin: 0;
+        font-size: var(--app-size-title);
+        font-weight: 600;
+    }
+}
+
+.logo {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain !important;
+    border-width: 0;
+    display: block;
+    height: 60px;
+    left: 32px;
+    position: relative;
+    top: 0;
+    width: 280px;
+    z-index: 1001;
+}
+
+.app-version {
+    color: var(--app-ink-faint);
+}
+
+.header-actions {
+    gap: 8px;
+}
+
+.header-btn,
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius-sm);
+    font-size: var(--app-size-body);
+    line-height: 1;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: inherit;
+
+    &:hover {
+        border-color: var(--app-border-strong);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--tcl-borderFocus);
+        outline-offset: 1px;
+    }
+}
+
+.theme-icon {
+    font-size: 16px;
+}
+
+// ── Top-level section nav ─────────────────────────────────────────────────
+// Mirrors the ThreatConnect platform header: plain text items, muted until
+// active, with an accent underline flush to the header's bottom edge.
+// This is nav, not a toolbar — actions belong in .header-actions.
+
+.header-nav {
+    display: flex;
+    // stretch to the full 60px header row so the underline sits on its edge
+    align-self: stretch;
+    align-items: stretch;
+    margin-left: 40px;
+}
+
+.nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    font-size: 14px;
+    // Weight stays constant across states on purpose: bolding the active item
+    // would change its width and shift its neighbours on every navigation.
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    color: inherit;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+
+    &:hover {
+        opacity: 1;
+        text-decoration: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--tcl-borderFocus);
+        outline-offset: -2px;
+    }
+
+    &.active {
+        opacity: 1;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: 0;
+            height: 2px;
+            background: var(--tcl-textLink);
+        }
+    }
+}
+
+.nav-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: var(--app-radius-pill);
+    background: var(--app-sev-med);
+    color: var(--app-on-severity);
+    font-size: var(--app-size-label);
+    font-weight: 700;
+}

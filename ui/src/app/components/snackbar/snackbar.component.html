@@ -1,0 +1,12 @@
+<div
+    *ngIf="displayAlert"
+    class="snackbar-container container-common-css {{ alertMessage?.styleClass }}"
+    [ngClass]="{ visible: displayAlert }"
+>
+    <div *ngIf="alertMessage" class="snackbar-alert-message d-flex align-items-center">
+        <span *ngIf="alertMessage?.alertIcon" class="mr-xsmall {{ alertMessage.alertIcon }}">
+            <tcl-svg-icon size="1rem" [name]="alertMessage?.alertIconName"></tcl-svg-icon>
+        </span>
+        <span class="snackbar-message" [innerHTML]="alertMessage?.message"></span>
+    </div>
+</div>

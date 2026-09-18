@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "name": "static-build",
+      "description": "Serve the built UI without a ThreatConnect backend. API calls fail, so pages render their error/empty states -- which is exactly what this is for: proving the shell boots, hash routing works, and the theme flips.",
+      "command": "python3 -m http.server 8137 --directory ui_build/browser",
+      "port": 8137,
+      "url": "http://localhost:8137/#/dashboard"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "package": {
+    "app_name": "TC_Service_Template",
+    "excludes": [
+      ".claude",
+      ".gitignore",
+      ".impeccable",
+      ".pre-commit-config.yaml",
+      "app_spec.yaml",
+      "app_spec.yml",
+      "conftest.py",
+      "docs",
+      "local-*",
+      "pyproject.toml",
+      "pytest.ini",
+      "requirements-dev.txt",
+      "scripts",
+      "tc_out_path",
+      "tests",
+      "ui"
+    ]
+  },
+  "template_name": "basic",
+  "template_type": "api_service"
+}

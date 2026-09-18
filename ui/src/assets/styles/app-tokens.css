@@ -1,0 +1,140 @@
+/*
+ * App-owned design tokens.
+ *
+ * Two-layer system:
+ *   --tcl-*  the host's voice (tcl-variables.css). Authoritative for anything
+ *            the platform styles: links, focus rings, error/warning, base
+ *            surfaces, the spacing scale. Never hardcode a hex that one of
+ *            these already provides.
+ *   --app-*  this file. Fills only the surfaces the platform does not style.
+ *
+ * THE ONE RULE: every color token is defined TWICE -- once in :root (light)
+ * and once in body.dark. A component that needs its own
+ * :host-context(body.dark) color override means a token is missing here; add
+ * it rather than hardcoding the dark value in the component.
+ *
+ * Non-color scales (spacing, radius, type) are theme-independent and defined
+ * once.
+ */
+
+:root {
+  /* Surfaces -------------------------------------------------------- */
+  --app-canvas: #f5f6f8;          /* the page behind everything */
+  --app-surface: #ffffff;         /* cards, panels, table rows */
+  --app-surface-raised: #ffffff;  /* drawers, modals, menus */
+  --app-surface-sunken: #eef0f4;  /* wells, inset areas, empty states */
+  --app-border: #d8dce3;          /* the 1px hairline that does most of the work */
+  --app-border-strong: #c0c6d1;
+  --app-grid: #e3e6ec;            /* chart gridlines, dot grids */
+
+  /* Ink ------------------------------------------------------------- */
+  --app-ink: #1b2132;             /* primary text */
+  --app-ink-muted: #657086;       /* secondary text, axis labels */
+  --app-ink-faint: #8d96a8;       /* placeholders, disabled */
+  --app-on-accent: #ffffff;       /* text on a filled accent surface */
+
+  /* Accent ---------------------------------------------------------- */
+  --app-accent: #3e89f9;
+  --app-accent-quiet: #e8f0fe;    /* accent tint for chips/rows */
+
+  /* Severity ramp ---------------------------------------------------
+   * Four steps, used ONLY for scores, status and ratings -- never for
+   * decoration or for encoding a category. See DESIGN.md.
+   */
+  --app-sev-low: #34c759;
+  --app-sev-med: #f5a623;
+  --app-sev-high: #e53935;
+  --app-sev-crit: #b71c1c;
+  --app-sev-crit-text: #8e0000;   /* crit as TEXT needs more contrast than as fill */
+  /* Text ON a severity fill. Deliberately the SAME in both themes: the
+   * fills do not flip, so the text on them must not either. */
+  --app-on-severity: #0f1520;
+
+  /* Categorical series ----------------------------------------------
+   * For charts where color encodes a category, not a magnitude. Ordered so
+   * the first few stay distinguishable in both themes.
+   */
+  --app-cat-1: #3e89f9;
+  --app-cat-2: #719900;
+  --app-cat-3: #9c27b0;
+  --app-cat-4: #e8871e;
+  --app-cat-5: #00bcd4;
+  --app-cat-6: #8d6e63;
+
+  /* Radius ----------------------------------------------------------- */
+  --app-radius-xs: 2px;
+  --app-radius-sm: 4px;
+  --app-radius-md: 6px;
+  --app-radius-lg: 8px;
+  --app-radius-pill: 10px;
+
+  /* Elevation --------------------------------------------------------
+   * Floaters only: drawers, modals, menus, tooltips. Everything else is
+   * flat with a 1px border.
+   */
+  --app-shadow-float: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* Type -------------------------------------------------------------
+   * Family is inherited from the platform; the app ships no typefaces.
+   */
+  --app-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --app-size-title: 15px;
+  --app-size-body: 13px;
+  --app-size-label: 11px;
+  --app-size-data: 12px;
+}
+
+body.dark {
+  --app-canvas: #141a2a;
+  --app-surface: #1e2738;
+  --app-surface-raised: #232d40;
+  --app-surface-sunken: #182031;
+  --app-border: #2d3548;
+  --app-border-strong: #3c465c;
+  --app-grid: #293143;
+
+  --app-ink: #d0d5e0;
+  --app-ink-muted: #98a1b3;
+  --app-ink-faint: #7c869b;
+  --app-on-accent: #0f1520;
+
+  --app-accent: #6aa6ff;
+  --app-accent-quiet: #1c2b45;
+
+  --app-sev-low: #34c759;
+  --app-sev-med: #f5a623;
+  --app-sev-high: #e53935;
+  --app-sev-crit: #b71c1c;
+  --app-sev-crit-text: #ff5449;
+
+  --app-cat-1: #6aa6ff;
+  --app-cat-2: #8fbf2a;
+  --app-cat-3: #c163d6;
+  --app-cat-4: #f0a04b;
+  --app-cat-5: #2ad2e6;
+  --app-cat-6: #b08d80;
+
+  --app-shadow-float: 0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+/* ── The one styled type treatment ──────────────────────────────────────
+ * A single uppercase tracked label. Using it everywhere a section needs a
+ * name is what keeps the UI quiet; adding a second decorative treatment is
+ * what makes it loud. See DESIGN.md, "The One Gesture Rule".
+ */
+.app-label {
+  color: var(--app-ink-muted);
+  font-size: var(--app-size-label);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Anything copy-pasteable is monospace; aligned digits get tabular-nums. */
+.app-mono {
+  font-family: var(--app-font-mono);
+  font-size: var(--app-size-data);
+}
+.app-num {
+  font-variant-numeric: tabular-nums;
+}

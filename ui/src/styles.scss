@@ -1,0 +1,40 @@
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+ul {
+    list-style: none;
+}
+
+::placeholder {
+    color: var(--tcl-textTertiary) !important;
+}
+
+.gap-medium {
+    gap: var(--tcl-spacing-medium);
+}
+
+/* change scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+/* track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* handle */
+::-webkit-scrollbar-thumb {
+    background: var(--tcl-iconsActionable) !important;
+    border-radius: 10px;
+}
+
+/* handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--tcl-iconsActionable) !important;
+}

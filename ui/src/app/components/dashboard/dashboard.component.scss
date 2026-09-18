@@ -1,0 +1,371 @@
+// A routed page MUST own its scroll: the shell is pinned to the viewport and
+// the document never scrolls (styles.scss sets `body { overflow: hidden }`).
+// Without `overflow-y: auto` here, everything past the fold is silently clipped.
+:host {
+    display: block;
+    height: 100%;
+    overflow-y: auto;
+    background: var(--app-canvas);
+    color: var(--app-ink);
+    font-size: var(--app-size-body);
+}
+
+.page {
+    // 16px side gutter at phone width, roomier beyond.
+    padding: 20px 16px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+// ── Header ──────────────────────────────────────────────────────────────
+
+.page-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.page-sub {
+    margin: 4px 0 0;
+    color: var(--app-ink-muted);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.select,
+.btn {
+    background: var(--app-surface);
+    color: var(--app-ink);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius-sm);
+    font-size: var(--app-size-body);
+    padding: 6px 10px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+        border-color: var(--app-border-strong);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--tcl-borderFocus);
+        outline-offset: 1px;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+}
+
+// ── Notices ─────────────────────────────────────────────────────────────
+
+.notice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius-md);
+    background: var(--app-surface-sunken);
+    color: var(--app-ink-muted);
+}
+
+.notice-error {
+    border-color: var(--tcl-error);
+    background: var(--tcl-errorReverse);
+    color: var(--app-ink);
+}
+
+.error-text {
+    color: var(--tcl-error);
+    margin: 0;
+}
+
+.muted {
+    color: var(--app-ink-muted);
+}
+
+// ── States ──────────────────────────────────────────────────────────────
+
+.state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 40px 16px;
+    color: var(--app-ink-muted);
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
+}
+
+.state-empty {
+    padding: 28px 16px;
+}
+
+.spinner {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--app-border);
+    border-top-color: var(--app-accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation: none;
+    }
+}
+
+// ── Tiles ───────────────────────────────────────────────────────────────
+
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.tile {
+    // Flat with a hairline border; shadows are reserved for floating surfaces.
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius-lg);
+    padding: 14px;
+    min-width: 0;
+}
+
+.tile-value {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-top: 6px;
+}
+
+.tile-value-sm {
+    font-size: 18px;
+}
+
+.tile-note {
+    color: var(--app-ink-muted);
+    font-size: var(--app-size-data);
+    margin-top: 2px;
+}
+
+// ── Panels ──────────────────────────────────────────────────────────────
+
+.panel {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius-lg);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--app-border);
+}
+
+.panel-title {
+    margin: 0;
+    font-size: var(--app-size-title);
+    font-weight: 600;
+}
+
+.panel-body {
+    padding: 14px;
+}
+
+.panel-body-flush {
+    padding: 0;
+}
+
+.markdown {
+    line-height: 1.55;
+
+    :first-child {
+        margin-top: 0;
+    }
+
+    :last-child {
+        margin-bottom: 0;
+    }
+}
+
+// ── Bars ────────────────────────────────────────────────────────────────
+
+.bars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+}
+
+.bar-row {
+    display: grid;
+    grid-template-columns: minmax(80px, 140px) 1fr 56px 44px;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.bar-label {
+    color: var(--app-ink-muted);
+    min-width: 0;
+}
+
+.bar-track {
+    display: block;
+    height: 10px;
+    border-radius: var(--app-radius-pill);
+    background: var(--app-surface-sunken);
+    overflow: hidden;
+}
+
+.bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: var(--app-radius-pill);
+    background: var(--app-accent);
+    transition: width 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bar-fill {
+        transition: none;
+    }
+}
+
+.bar-value {
+    text-align: right;
+    font-weight: 600;
+}
+
+.bar-pct {
+    text-align: right;
+    color: var(--app-ink-muted);
+    font-size: var(--app-size-data);
+}
+
+// ── Table ───────────────────────────────────────────────────────────────
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    th,
+    td {
+        padding: 8px 14px;
+        text-align: left;
+        border-bottom: 1px solid var(--app-border);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    th {
+        color: var(--app-ink-muted);
+        font-size: var(--app-size-label);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        user-select: none;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    tbody tr:hover {
+        background: var(--tcl-hoverMain);
+    }
+}
+
+.sortable {
+    cursor: pointer;
+
+    &:hover {
+        color: var(--app-ink);
+    }
+}
+
+.col-narrow {
+    width: 18%;
+}
+
+.col-score {
+    width: 84px;
+}
+
+// ── Score pill ──────────────────────────────────────────────────────────
+// The severity ramp is for scores/status/ratings only -- never decoration.
+
+.score {
+    display: inline-block;
+    min-width: 40px;
+    padding: 1px 7px;
+    border-radius: var(--app-radius-pill);
+    font-size: var(--app-size-data);
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    color: var(--app-on-accent);
+}
+
+.score-none {
+    background: transparent;
+    color: var(--app-ink-faint);
+}
+.score-low {
+    background: var(--app-sev-low);
+    color: var(--app-on-severity);
+}
+.score-med {
+    background: var(--app-sev-med);
+    color: var(--app-on-severity);
+}
+.score-high {
+    background: var(--app-sev-high);
+}
+.score-crit {
+    background: var(--app-sev-crit);
+}
+
+@media (max-width: 720px) {
+    .bar-row {
+        grid-template-columns: 90px 1fr 50px;
+    }
+
+    .bar-pct {
+        display: none;
+    }
+}

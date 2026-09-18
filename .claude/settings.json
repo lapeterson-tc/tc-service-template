@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/bin/python -m pytest:*)",
+      "Bash(.venv/bin/python -m pip install -r requirements-dev.txt)",
+      "Bash(python3 -m py_compile:*)",
+      "Bash(python3 scripts/new_app.py:*)",
+      "Bash(npx ng build:*)",
+      "Bash(npx ng lint:*)",
+      "Bash(npx ng test:*)",
+      "Bash(npm install:*)",
+      "Bash(tcex deps:*)",
+      "Bash(tcex package:*)"
+    ]
+  }
+}

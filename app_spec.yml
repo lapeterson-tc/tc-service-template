@@ -1,0 +1,60 @@
+# Source of truth for the ThreatConnect app manifest.
+#
+# 'tcex spec' regenerates install.json from this file -- edit here, not there.
+# Keep programVersion in sync with install.json and README.md's release notes.
+#
+# Fields a new app must change (scripts/new_app.py does all of these):
+#   appId        a fresh UUID -- two apps sharing one appId cannot both install
+#   displayName  what admins see in TC Exchange and the Services list
+#   displayPath  the default URL segment, ..../api/services/<displayPath>/v1/
+#   packageName  the .tcx filename stem; must match tcex.json's package.app_name
+allowOnDemand: true
+appId: 62822e38-4077-41b8-b24d-16a25703d91f
+displayName: Service Template
+displayPath: service_template
+features:
+- fileParams
+- linkApiPath
+- redisPasswordSupport
+languageVersion: '3.11'
+listDelimiter: '|'
+minServerVersion: 7.2.0
+note: ''
+packageName: TC_Service_Template
+programLanguage: PYTHON
+programMain: run.py
+programVersion: 1.0.0
+releaseNotes:
+- notes:
+  - Initial release.
+  version: 1.0.0
+runtimeLevel: ApiService
+schemaVersion: 1.1.0
+sdkVersion: 4.0.7
+# Service-configuration parameters an admin fills in when deploying the service.
+# Each entry here needs a matching field on AppBaseModel in app_inputs.py.
+# Leave the section empty (sections: []) if the app needs no configuration.
+#
+# sections:
+# - params:
+#   - label: Example API URL
+#     name: example_api_url
+#     note: Base URL of the upstream service this app calls.
+#     required: false
+#     sequence: 1
+#     serviceConfig: true
+#     type: String
+#     validValues:
+#     - ${TEXT}
+#   - encrypt: true
+#     label: Example API Key
+#     name: example_api_key
+#     note: Credential for the upstream service. Stored in the TC keychain.
+#     required: false
+#     sequence: 2
+#     serviceConfig: true
+#     type: String
+#     validValues:
+#     - ${KEYCHAIN}
+#   sectionName: Inputs
+sections: []

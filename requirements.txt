@@ -1,0 +1,16 @@
+# Runtime dependencies. `tcex deps` installs these into deps/, which run.py
+# puts on sys.path -- there is no runtime virtualenv. Everything listed here
+# ships inside the .tcx, so keep it minimal.
+#
+# PIN ANYTHING THAT CONSTRAINS PYDANTIC. tcex pins pydantic to 1.x, so any
+# package that jumped to pydantic v2 must be held on its last v1-compatible
+# major or the app fails at import with a confusing
+# "cannot import name 'RootModel' from 'pydantic'".
+boto3
+botocore
+falcon
+# spectree 2+/3+ require pydantic v2, which tcex does not allow.
+spectree[offline]>=1.5.8,<2
+tcex>=4.0.7,<4.1.0
+# required by core/json_db, which core/api/validation/models imports
+uuid6

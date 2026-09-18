@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Service Template</title>
+        <base href="./" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="assets/images/favicon.png" rel="icon" type="image/x-icon" />
+        <!--
+            The platform ships its own global stylesheet (tcl-global.css). It is NOT
+            served from this app's service path, so a <link> to it here resolves
+            against ./ and 404s. The app therefore supplies its own token
+            approximation in assets/styles/ (see angular.json "styles"). Do not
+            "fix" this into a live link without confirming the file is reachable.
+        -->
+
+        <script>
+            window.enablePendo = function (apiKey) {
+                (function (p, e, n, d, o) {
+                    var v, w, x, y, z;
+                    o = p[d] = p[d] || {};
+                    o._q = [];
+                    v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
+                    for (w = 0, x = v.length; w < x; ++w)
+                        (function (m) {
+                            o[m] =
+                                o[m] ||
+                                function () {
+                                    o._q[m === v[0] ? 'unshift' : 'push'](
+                                        [m].concat([].slice.call(arguments, 0)),
+                                    );
+                                };
+                        })(v[w]);
+                    y = e.createElement(n);
+                    y.async = !0;
+                    y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+                    z = e.getElementsByTagName(n)[0];
+                    z.parentNode.insertBefore(y, z);
+                })(window, document, 'script', 'pendo');
+            };
+        </script>
+    </head>
+
+    <body class="bg-base01">
+        <app-root></app-root>
+    </body>
+</html>

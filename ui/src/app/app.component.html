@@ -1,0 +1,37 @@
+<div class="parent" tclPendo [feature]="generatePendoFeature()" [qa]="'app-shell'">
+    <div class="header d-flex align-items-center">
+        <a href="./">
+            <img class="logo" alt="ThreatConnect" [src]="logoImage" />
+        </a>
+        <div class="d-flex align-items-baseline">
+            <h3>{{ (appConfig$ | async)?.ui.title }}</h3>
+            <div class="app-version pl-medium fontsize-subtext">
+                {{ (appConfig$ | async)?.ui.version }}
+            </div>
+        </div>
+        <nav class="header-nav" aria-label="Sections">
+            <a
+                class="nav-item"
+                [class.active]="activeNav === 'dashboard'"
+                [attr.aria-current]="activeNav === 'dashboard' ? 'page' : null"
+                routerLink="/dashboard"
+            >
+                Dashboard
+            </a>
+        </nav>
+        <div class="ml-auto pr-medium-large d-flex align-items-center header-actions">
+            <button
+                class="header-btn theme-toggle-btn"
+                (click)="toggleTheme()"
+                [title]="appTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+            >
+                <span class="theme-icon">{{ appTheme === 'dark' ? '☀' : '☾' }}</span>
+                {{ appTheme === 'dark' ? 'Light Mode' : 'Dark Mode' }}
+            </button>
+        </div>
+    </div>
+    <div class="main-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<app-snackbar></app-snackbar>

@@ -1,0 +1,148 @@
+/*
+ * Standalone approximation of ThreatConnect's platform design tokens.
+ *
+ * Inside the platform these --tcl-* custom properties come from the host's
+ * own global stylesheet, which is not served from this app's service path --
+ * so the app ships this file and the values are a close match, not the real
+ * thing. Treat every --tcl-* token as "the host's voice": use it rather than
+ * hardcoding an equivalent hex, so the app inherits the platform's look if
+ * the real stylesheet ever becomes reachable.
+ *
+ * Dark mode flips the same tokens under `body.dark` (the class is set by
+ * app.component from ThreatConnect's stored user theme preference). Define
+ * every color token in BOTH blocks; a component should never need its own
+ * :host-context(body.dark) color override.
+ *
+ * App-owned tokens live in app-tokens.css.
+ */
+:root {
+  --tcl-base01: #ffffff;
+  --tcl-base02: #f5f6fa;
+  --tcl-border01: #d8dde7;
+  --tcl-border02: #eef1f7;
+  --tcl-borderFocus: #3e89f9;
+  --tcl-error: #d93025;
+  --tcl-errorReverse: #fce8e6;
+  --tcl-hoverMain: #eef1f7;
+  --tcl-iconsActionable: #657086;
+  --tcl-infoReverse: #e8f0fe;
+  --tcl-linkReverse: #e8f0fe;
+  --tcl-primary: #3e89f9;
+  --tcl-shadow-large: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --tcl-spacing-xsmall: 4px;
+  --tcl-spacing-small: 8px;
+  --tcl-spacing-medium: 16px;
+  --tcl-spacing-medium-large: 24px;
+  --tcl-spacing-large: 32px;
+  --tcl-spacing-xlarge: 48px;
+  --tcl-successReverse: #e6f4ea;
+  --tcl-textBody: #1b2132;
+  --tcl-textLink: #1558d6;
+  --tcl-textSecondary: #657086;
+  --tcl-textTertiary: #8d96a8;
+  --tcl-warning: #f9a825;
+  --tcl-warningReverse: #fef7e0;
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  color: var(--tcl-textBody);
+}
+
+/* ── Dark theme ─────────────────────────────────────────────────────────
+ * Same token names, dark values. Set on <body> by app.component.ts.
+ */
+body.dark {
+  --tcl-base01: #1e2738;
+  --tcl-base02: #141a2a;
+  --tcl-border01: #2d3548;
+  --tcl-border02: #242c3d;
+  --tcl-borderFocus: #6aa6ff;
+  --tcl-error: #ff5449;
+  --tcl-errorReverse: #3a1f1d;
+  --tcl-hoverMain: #263047;
+  --tcl-iconsActionable: #8d96a8;
+  --tcl-infoReverse: #1c2b45;
+  --tcl-linkReverse: #1c2b45;
+  --tcl-primary: #3e89f9;
+  --tcl-shadow-large: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --tcl-successReverse: #16301f;
+  --tcl-textBody: #d0d5e0;
+  --tcl-textLink: #6aa6ff;
+  --tcl-textSecondary: #98a1b3;
+  --tcl-textTertiary: #7c869b;
+  --tcl-warning: #f5a623;
+  --tcl-warningReverse: #3a2e14;
+
+  color: var(--tcl-textBody);
+  background-color: var(--tcl-base02);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; margin: 0; }
+
+/* ── Display / flex ─────────────────────────────────── */
+.d-flex { display: flex; }
+.align-items-center { align-items: center; }
+.align-items-baseline { align-items: baseline; }
+.align-items-end { align-items: end; }
+.align-self-bottom { align-self: flex-end; }
+.align-self-end { align-self: flex-end; }
+.ml-auto { margin-left: auto; }
+.cursor-pointer { cursor: pointer; }
+.text-ellipsis { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── Backgrounds ────────────────────────────────────── */
+.bg-base01 { background-color: var(--tcl-base01); }
+.bg-base02 { background-color: var(--tcl-base02); }
+
+/* ── Text colors ────────────────────────────────────── */
+.text-textBody { color: var(--tcl-textBody); }
+.text-textTertiary { color: var(--tcl-textTertiary); }
+
+/* ── Borders ────────────────────────────────────────── */
+.border-border01 { border-color: var(--tcl-border01); }
+.border-bottom-border02 { border-bottom: 1px solid var(--tcl-border02); }
+.border-right-border02 { border-right: 1px solid var(--tcl-border02); }
+
+/* ── Spacing ────────────────────────────────────────── */
+.pt-xsmall  { padding-top:    var(--tcl-spacing-xsmall); }
+.pt-small   { padding-top:    var(--tcl-spacing-small); }
+.pt-medium  { padding-top:    var(--tcl-spacing-medium); }
+.pt-medium-large { padding-top: var(--tcl-spacing-medium-large); }
+
+.pb-xsmall  { padding-bottom: var(--tcl-spacing-xsmall); }
+.pb-medium  { padding-bottom: var(--tcl-spacing-medium); }
+.pb-large   { padding-bottom: var(--tcl-spacing-large); }
+.pb-medium-large { padding-bottom: var(--tcl-spacing-medium-large); }
+
+.pl-xsmall  { padding-left:   var(--tcl-spacing-xsmall); }
+.pl-medium  { padding-left:   var(--tcl-spacing-medium); }
+
+.pr-xsmall  { padding-right:  var(--tcl-spacing-xsmall); }
+.pr-small   { padding-right:  var(--tcl-spacing-small); }
+.pr-medium  { padding-right:  var(--tcl-spacing-medium); }
+.pr-medium-large { padding-right: var(--tcl-spacing-medium-large); }
+
+.px-medium  { padding-left: var(--tcl-spacing-medium); padding-right: var(--tcl-spacing-medium); }
+.px-medium-large { padding-left: var(--tcl-spacing-medium-large); padding-right: var(--tcl-spacing-medium-large); }
+.py-small   { padding-top: var(--tcl-spacing-small); padding-bottom: var(--tcl-spacing-small); }
+
+.mt-medium  { margin-top:    var(--tcl-spacing-medium); }
+.mt-large   { margin-top:    var(--tcl-spacing-large); }
+.mt-xlarge  { margin-top:    var(--tcl-spacing-xlarge); }
+
+.mb-xsmall  { margin-bottom: var(--tcl-spacing-xsmall); }
+.mb-medium  { margin-bottom: var(--tcl-spacing-medium); }
+.mb-large   { margin-bottom: var(--tcl-spacing-large); }
+
+.ml-small   { margin-left:   var(--tcl-spacing-small); }
+.ml-medium  { margin-left:   var(--tcl-spacing-medium); }
+
+.mr-xsmall  { margin-right:  var(--tcl-spacing-xsmall); }
+.mr-small   { margin-right:  var(--tcl-spacing-small); }
+.mr-medium  { margin-right:  var(--tcl-spacing-medium); }
+.mr-xlarge  { margin-right:  var(--tcl-spacing-xlarge); }
+
+/* ── Typography ─────────────────────────────────────── */
+.fontsize-subtext { font-size: 12px; }
+.fontsize-body    { font-size: 14px; }

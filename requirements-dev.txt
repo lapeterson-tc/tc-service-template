@@ -1,0 +1,5 @@
+# Dev/test-only dependencies -- install into a local venv, never packaged:
+#   python3 -m venv .venv
+#   .venv/bin/pip install -r requirements-dev.txt
+#   .venv/bin/python -m pytest
+pytest>=8,<9
